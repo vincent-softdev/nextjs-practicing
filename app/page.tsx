@@ -1,23 +1,26 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from './hooks'
-import { incremented, amountAdded } from '@/features/counter/counter-slice'
- 
+import { useAppDispatch, useAppSelector } from '../redux/hooks/hooks'
+import { incremented, amountAdded } from '@/redux/features/counter/counter-slice'
+import react, { useEffect } from 'react'
+
 export default function Home() {
-  const count = useAppSelector((state) => state.counter.value)
-  const dispatch = useAppDispatch()
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(amountAdded(5))
-  }
+    dispatch(incremented());
+    console.log(count);  // Note: this might not immediately reflect the updated value due to async nature of Redux.
+  };
 
   return (
-    <main>
-      <p>Hello</p>
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={handleClick}>Add 5</button>
 
-      <button onClick={handleClick} className='bg-black'>
-        count is: {count}
-      </button>
-    </main>
-  )
+      <p>
+      <a href="/products">Products page</a>
+      </p>
+    </div>
+  );
 }

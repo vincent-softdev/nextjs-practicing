@@ -8,7 +8,7 @@ interface CounterState {
 
 // initial the data
 const initialState: CounterState = {
-    value: 0
+    value: 10
 }
 
 // Now, create the slice with the logic
@@ -16,23 +16,20 @@ const counterSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        // increase
-        incremented(state) {
-            // It is okay to do like this instead of return this value as 
-            // Redux inner using immer which makes it immuable
+        incremented: (state) => {
             state.value ++
         },
         // amount added
-        amountAdded(state, action: PayloadAction<number>){
+        amountAdded: (state, action: PayloadAction<number>) => {
             state.value += action.payload
         },
         // decrease
-        decremented(state){
-            state.value --
+        decremented: (state) => {
+            return {value: state.value --}
         },
         // reset
-        reset(state){
-            0
+        reset: () => {
+            return {value: 0}
         }
     }
 })
